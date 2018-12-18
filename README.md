@@ -2,6 +2,7 @@
 Starting with Cucumber Testing Framework with multiple browser
 
 1. Put code to detech browser into Before hook
+```
 @Before
 	public void BeforeScenario() {
 		String webdriver = System.getProperty("browser", "firefox");
@@ -20,7 +21,7 @@ Starting with Cucumber Testing Framework with multiple browser
 		driver.manage().deleteAllCookies();
 		driver.manage().window().maximize();
 	}
-  
+  ```
   2. Start Cmd execute the Maven command
   
   For Chrome:
