@@ -1,5 +1,7 @@
 package pageobjects;
 
+import java.util.concurrent.TimeUnit;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -34,14 +36,10 @@ public class LoginPage {
 	
 	public WebElement WaitPopupToDisplay()
 	{
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
 		WebElement element = (new WebDriverWait(this.driver, 10))
 				.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div.popover-dialog")));
+		this.driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 		
 		this.lbMessageInBold = element.findElement(By.cssSelector("b"));
 		this.lbMessageInItalic = element.findElement(By.cssSelector("i"));
