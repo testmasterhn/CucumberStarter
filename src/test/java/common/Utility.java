@@ -21,13 +21,13 @@ public class Utility {
 		StringSelection stringSelection = new StringSelection(string);
 		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(stringSelection, null);
 	}
-	
+
 	/**
-	 * This method is used to put the file location to select file upload dialog 
+	 * This method is used to put the file location to select file upload dialog
+	 * 
 	 * @param fileLocation
 	 */
-	public static void uploadFile(String fileLocation)
-	{
+	public static void uploadFile(String fileLocation) {
 		try {
 			// Setting clip board with file location
 			setClipboardData(fileLocation);
@@ -45,16 +45,17 @@ public class Utility {
 			exp.printStackTrace();
 		}
 	}
-	
+
 	/**
 	 * Scroll element into browser view
+	 * 
 	 * @param driver
 	 * @param element
 	 */
 	public static void scrolled_element_into_view(WebDriver driver, WebElement element) {
-		//Creating the JavascriptExecutor interface object by Type casting		
-        JavascriptExecutor js = (JavascriptExecutor)driver;
-        
+		// Creating the JavascriptExecutor interface object by Type casting
+		JavascriptExecutor js = (JavascriptExecutor) driver;
+
 		js.executeScript("arguments[0].scrollIntoView(false);", element);
 		try {
 			Thread.sleep(2000);
@@ -63,19 +64,36 @@ public class Utility {
 			e.printStackTrace();
 		}
 	}
-	
+
+	/**
+	 * Switch to windows. If windows Handler is empty, the top windows will be
+	 * switched to
+	 * 
+	 * @param driver
+	 * @param windowHandler
+	 */
+	public static void switch_window(WebDriver driver, String windowHandler) {
+		
+		if (!windowHandler.isEmpty()) {
+			driver.switchTo().window(windowHandler);
+		} else {
+			for (String handle : driver.getWindowHandles()) {
+				driver.switchTo().window(handle);
+			}
+		}
+	}
+
 	/**
 	 * The method to check the specific file is existed or not
+	 * 
 	 * @param fileLocation
 	 * @return
 	 */
-	public static boolean checkExistFile(String fileLocation)
-	{
+	public static boolean checkExistFile(String fileLocation) {
 		File f = new File(fileLocation);
-		if(f.exists() && !f.isDirectory())
+		if (f.exists() && !f.isDirectory())
 			return true;
 		return false;
 	}
-	
-	
+
 }
