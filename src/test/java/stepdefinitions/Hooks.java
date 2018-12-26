@@ -5,7 +5,9 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
 
 import cucumber.api.Scenario;
 import cucumber.api.java.After;
@@ -20,12 +22,17 @@ public class Hooks {
 		String webdriver = System.getProperty("browser", "firefox");
 		switch (webdriver) {
 		case "chrome":
-			System.setProperty("webdriver.chrome.driver", "C:\\Selenium\\Driver\\chromedriver.exe");
-			driver = new ChromeDriver();
+			//System.setProperty("webdriver.chrome.driver", "C:\\Selenium\\Driver\\chromedriver.exe");
+			
+			ChromeOptions options = new ChromeOptions();
+			options.addArguments("--lang=vi-VN");
+			driver = new ChromeDriver(options);
 			break;
 		case "firefox":
-			System.setProperty("webdriver.gecko.driver", "C:\\\\Selenium\\\\Driver\\\\geckodriver.exe");
-			driver = new FirefoxDriver();
+			//System.setProperty("webdriver.gecko.driver", "C:\\\\Selenium\\\\Driver\\\\geckodriver.exe");
+			FirefoxOptions ffoption = new FirefoxOptions();
+			ffoption.addArguments("--lang=vi-VN");
+			driver = new FirefoxDriver(ffoption);
 			break;
 		default:
             throw new RuntimeException("Unsupported webdriver: " + webdriver);

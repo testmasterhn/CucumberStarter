@@ -12,14 +12,20 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 public class DataHelper {
-	public static HashMap<String, String> storeValues = new HashMap();
-
-	public static List<HashMap<String, String>> data(String filepath, String sheetName) {
+	private String filePath;
+	private String sheetName;
+	
+	public DataHelper(String filePath, String sheetName) {
+		this.filePath = filePath;
+		this.sheetName = sheetName;
+	}
+	
+	public List<HashMap<String, String>> data() {
 		List<HashMap<String, String>> mydata = new ArrayList<>();
 		try {
-			FileInputStream fs = new FileInputStream(filepath);
+			FileInputStream fs = new FileInputStream(this.filePath);
 			XSSFWorkbook workbook = new XSSFWorkbook(fs);
-			XSSFSheet sheet = workbook.getSheet(sheetName);
+			XSSFSheet sheet = workbook.getSheet(this.sheetName);
 			Row HeaderRow = sheet.getRow(0);
 			for (int i = 1; i < sheet.getPhysicalNumberOfRows(); i++) {
 				Row currentRow = sheet.getRow(i);
@@ -40,5 +46,29 @@ public class DataHelper {
 			e.printStackTrace();
 		}
 		return mydata;
+	}
+	
+	public void update(String field, int rowIndex, String value)
+	{
+		int fieldIndex=0;
+		try {
+			FileInputStream fs = new FileInputStream(this.filePath);
+			XSSFWorkbook workbook = new XSSFWorkbook(fs);
+			XSSFSheet sheet = workbook.getSheet(this.sheetName);
+			Row HeaderRow = sheet.getRow(0);
+			for (int j = 0; j < HeaderRow.getPhysicalNumberOfCells(); j++) {
+				Cell currentCell = HeaderRow.getCell(j);
+				if(currentCell.getStringCellValue().equals(field))
+				{
+					fieldIndex= j;
+				}
+			}
+			Cell updateCell = sheet.getRow(rowIndex).getCell(fieldIndex);
+			updateCell.setCellValue(value);
+		}
+		catch(Exception e)
+		{
+			e.printStackTrace();
+		}
 	}
 }

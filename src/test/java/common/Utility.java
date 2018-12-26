@@ -12,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class Utility {
+	
 	/**
 	 * This method will set any parameter string to the system's clipboard.
 	 */

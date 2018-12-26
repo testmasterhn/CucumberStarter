@@ -6,7 +6,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(plugin = { "pretty","html:target\\HtmlReport" },
-		features= "src\\test\\resources\\cucumberstarter\\adminmenu.feature",
+		features= "src\\test\\resources\\cucumberstarter\\lazadaloginfacebook.feature",
 		monochrome = true, glue = "stepdefinitions")
 public class RunCucumberTest {
 }

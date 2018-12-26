@@ -12,6 +12,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class LoginPage {
 	WebDriver driver;
+	
+	By popup = By.cssSelector("");
+	
 	@FindBy(css="div.login-form input[type=email]")
 	public WebElement txtUsername;
 	
@@ -36,10 +39,10 @@ public class LoginPage {
 	
 	public WebElement WaitPopupToDisplay()
 	{
-		
 		WebElement element = (new WebDriverWait(this.driver, 10))
 				.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("div.popover-dialog")));
-		this.driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
+	
+		//this.driver.manage().timeouts().implicitlyWait(1, TimeUnit.SECONDS);
 		
 		this.lbMessageInBold = element.findElement(By.cssSelector("b"));
 		this.lbMessageInItalic = element.findElement(By.cssSelector("i"));

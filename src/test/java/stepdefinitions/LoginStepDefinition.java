@@ -10,6 +10,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import org.junit.Assert;
 import org.openqa.selenium.WebDriver;
@@ -32,6 +33,8 @@ public class LoginStepDefinition {
 	@Given("I am staying testmaster login page")
 	public void i_am_staying_testmaster_login_page() {
 		this.driver.get("http://www.testmaster.vn/admin");
+		
+		this.driver.manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
 	}
 
 	@When("I provide invalid value for username and password")

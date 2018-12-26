@@ -1,5 +1,6 @@
 #Author: khanh.tx@live.com
 
+@FrontEnd
 Feature: Testmaster Subscription Function
 
   Scenario: Show Subscriber form when open Testmaster homepage
