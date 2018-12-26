@@ -27,7 +27,7 @@ public class LoginStepDefinition {
 	public LoginStepDefinition() {
 		this.driver = Hooks.driver;
 		this.loginPage = new LoginPage(Hooks.driver);
-		datamap = DataHelper.data(System.getProperty("user.dir")+"//src//test//resources//testData/default.xlsx","Sheet1");
+		//datamap = DataHelper.data(System.getProperty("user.dir")+"//src//test//resources//testData/default.xlsx","Sheet1");
 	}
 
 	@Given("I am staying testmaster login page")

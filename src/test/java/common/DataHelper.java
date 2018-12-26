@@ -1,6 +1,7 @@
 package common;
 
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -34,7 +35,6 @@ public class DataHelper {
 					Cell currentCell = currentRow.getCell(j);
 					switch (currentCell.getCellType()) {
 					case STRING:
-						System.out.print(currentCell.getStringCellValue() + "\t");
 						currentHash.put(HeaderRow.getCell(j).getStringCellValue(), currentCell.getStringCellValue());
 						break;
 					}
@@ -48,7 +48,7 @@ public class DataHelper {
 		return mydata;
 	}
 	
-	public void update(String field, int rowIndex, String value)
+	private void update(String field, int rowIndex, Object value, String Type)
 	{
 		int fieldIndex=0;
 		try {
@@ -64,11 +64,43 @@ public class DataHelper {
 				}
 			}
 			Cell updateCell = sheet.getRow(rowIndex).getCell(fieldIndex);
-			updateCell.setCellValue(value);
+			if(updateCell==null)
+			{
+				updateCell = sheet.getRow(rowIndex).createCell(fieldIndex);
+			}
+			if(Type.toLowerCase().equals("string"))
+				updateCell.setCellValue(value.toString());
+			else if(Type.toLowerCase().equals("number"))
+				updateCell.setCellValue((double)value);
+			
+			FileOutputStream fileOut = new FileOutputStream(this.filePath);
+			workbook.write(fileOut);
+			
+			fileOut.close();
+			workbook.close();
+			
+			System.out.println("done");
 		}
 		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public void update(String field, int rowIndex, String value)
+	{
+		this.update(field, rowIndex, value, "string");
+	}
+	
+	public void update(String field, int rowIndex, double value)
+	{
+		this.update(field, rowIndex, value, "number");
+	}
+	
+	public static void main(String[] args) {
+		DataHelper dataHelper = new DataHelper("C:\\TestData\\Book1.xlsx", "Sheet1");
+		dataHelper.update("status", 1, "0");
+		
+		System.out.println(dataHelper.data().get(1).get("email"));
 	}
 }
